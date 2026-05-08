@@ -14,7 +14,11 @@ const tools = [
         strokeWidth="1.6"
         strokeLinecap="round"
       >
-        <text x="2" y="15" style={{ fontSize: 16, fill: 'currentColor', stroke: 'none', fontWeight: 700 }}>
+        <text
+          x="2"
+          y="15"
+          style={{ fontSize: 16, fill: 'currentColor', stroke: 'none', fontWeight: 700 }}
+        >
           T
         </text>
         <line x1="11" y1="13" x2="18" y2="13" />
@@ -63,7 +67,15 @@ export function Layout() {
           </NavLink>
         ))}
       </aside>
-      <main style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+      <main
+        style={{
+          flex: 1,
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          minWidth: 0,
+        }}
+      >
         <Outlet />
       </main>
     </div>

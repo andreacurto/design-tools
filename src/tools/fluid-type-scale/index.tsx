@@ -229,15 +229,14 @@ function SettingsDrawer({
           <DrawerSection title="Tipografia">
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
               <DrawerField label="Font family">
-                <DrawerInput
-                  value={settings.font}
-                  onChange={(v) => onUpdate('font', v)}
-                />
+                <DrawerInput value={settings.font} onChange={(v) => onUpdate('font', v)} />
               </DrawerField>
               <DrawerField label="Font weight">
                 <DrawerSelect value={settings.weight} onChange={(v) => onUpdate('weight', v)}>
                   {['300', '400', '500', '600', '700'].map((w) => (
-                    <option key={w} value={w}>{w}</option>
+                    <option key={w} value={w}>
+                      {w}
+                    </option>
                   ))}
                 </DrawerSelect>
               </DrawerField>
@@ -246,7 +245,9 @@ function SettingsDrawer({
 
           {/* Viewport */}
           <DrawerSection title="Viewport">
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 12 }}>
+            <div
+              style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 12 }}
+            >
               <DrawerField label="Min (px)">
                 <DrawerInput
                   type="number"
@@ -269,7 +270,9 @@ function SettingsDrawer({
             <DrawerField label="Viewport unit">
               <DrawerSelect value={settings.vpUnit} onChange={(v) => onUpdate('vpUnit', v)}>
                 {['vw', 'cqi', 'dvw', 'svw'].map((u) => (
-                  <option key={u} value={u}>{u}</option>
+                  <option key={u} value={u}>
+                    {u}
+                  </option>
                 ))}
               </DrawerSelect>
             </DrawerField>
@@ -277,7 +280,9 @@ function SettingsDrawer({
 
           {/* Dimensioni base */}
           <DrawerSection title="Dimensioni base">
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 12 }}>
+            <div
+              style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 12 }}
+            >
               <DrawerField label="Min (px)">
                 <DrawerInput
                   type="number"
@@ -313,14 +318,18 @@ function SettingsDrawer({
             <DrawerField label="Ratio per viewport min">
               <DrawerSelect value={String(settings.rMin)} onChange={(v) => onUpdate('rMin', +v)}>
                 {RATIO_OPTIONS.map((o) => (
-                  <option key={o.value} value={o.value}>{o.label}</option>
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
                 ))}
               </DrawerSelect>
             </DrawerField>
             <DrawerField label="Ratio per viewport max" style={{ marginTop: 12 }}>
               <DrawerSelect value={String(settings.rMax)} onChange={(v) => onUpdate('rMax', +v)}>
                 {RATIO_OPTIONS.map((o) => (
-                  <option key={o.value} value={o.value}>{o.label}</option>
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
                 ))}
               </DrawerSelect>
             </DrawerField>
@@ -338,10 +347,7 @@ function SettingsDrawer({
               </DrawerSelect>
             </DrawerField>
             <DrawerField label="Prefisso token" style={{ marginTop: 12 }}>
-              <DrawerInput
-                value={settings.prefix}
-                onChange={(v) => onUpdate('prefix', v)}
-              />
+              <DrawerInput value={settings.prefix} onChange={(v) => onUpdate('prefix', v)} />
             </DrawerField>
           </DrawerSection>
         </div>
@@ -413,12 +419,19 @@ function DrawerField({
 
 // ── Scale Column ─────────────────────────────────────────────────────────────
 
-function ScaleColumn({
-  ts,
-}: {
-  ts: ReturnType<typeof useTypeScale>
-}) {
-  const { settings, scale, getPx, isMod, addAbove, addBelow, removeRow, setOverride, resetOverride, canAddBelow } = ts
+function ScaleColumn({ ts }: { ts: ReturnType<typeof useTypeScale> }) {
+  const {
+    settings,
+    scale,
+    getPx,
+    isMod,
+    addAbove,
+    addBelow,
+    removeRow,
+    setOverride,
+    resetOverride,
+    canAddBelow,
+  } = ts
   const { prefix } = settings
 
   return (
@@ -480,18 +493,11 @@ function ScaleColumn({
                   --{prefix}-{row.key}
                 </span>
                 <div style={{ display: 'flex', gap: 1 }}>
-                  <IconBtn
-                    title="Ripristina"
-                    onClick={() => resetOverride(row.key)}
-                  >
+                  <IconBtn title="Ripristina" onClick={() => resetOverride(row.key)}>
                     ↺
                   </IconBtn>
                   {!row.isBase && (
-                    <IconBtn
-                      title="Rimuovi"
-                      danger
-                      onClick={() => removeRow(row.key)}
-                    >
+                    <IconBtn title="Rimuovi" danger onClick={() => removeRow(row.key)}>
                       ×
                     </IconBtn>
                   )}
@@ -728,7 +734,9 @@ function PreviewColumn({
           }}
         />
         <span style={{ fontSize: 11, color: C.muted }}>px</span>
-        <div style={{ width: 1, height: 16, background: C.border, flexShrink: 0, margin: '0 2px' }} />
+        <div
+          style={{ width: 1, height: 16, background: C.border, flexShrink: 0, margin: '0 2px' }}
+        />
         <input
           type="text"
           value={sampleText}
@@ -889,7 +897,15 @@ function ExportColumn({ ts }: { ts: ReturnType<typeof useTypeScale> }) {
 
       {/* CSS pane */}
       {activeTab === 'css' && (
-        <div style={{ display: 'flex', flexDirection: 'column', flex: 1, overflow: 'hidden', minHeight: 0 }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            flex: 1,
+            overflow: 'hidden',
+            minHeight: 0,
+          }}
+        >
           <div
             style={{
               padding: '8px 12px',
@@ -909,7 +925,15 @@ function ExportColumn({ ts }: { ts: ReturnType<typeof useTypeScale> }) {
               {cssCopied ? 'Copiato!' : 'Copia'}
             </ActBtn>
           </div>
-          <div style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+          <div
+            style={{
+              flex: 1,
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              minHeight: 0,
+            }}
+          >
             <pre
               style={{
                 margin: 0,
@@ -932,7 +956,15 @@ function ExportColumn({ ts }: { ts: ReturnType<typeof useTypeScale> }) {
 
       {/* Figma pane */}
       {activeTab === 'figma' && (
-        <div style={{ display: 'flex', flexDirection: 'column', flex: 1, overflow: 'hidden', minHeight: 0 }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            flex: 1,
+            overflow: 'hidden',
+            minHeight: 0,
+          }}
+        >
           <div
             style={{
               padding: '8px 12px',
@@ -944,12 +976,23 @@ function ExportColumn({ ts }: { ts: ReturnType<typeof useTypeScale> }) {
             }}
           >
             <span style={{ fontSize: 11, color: C.muted }}>Design Tokens JSON</span>
-            <ActBtn style={{ marginLeft: 'auto' }} onClick={() => copy(figmaOutput, setFigmaCopied)}>
+            <ActBtn
+              style={{ marginLeft: 'auto' }}
+              onClick={() => copy(figmaOutput, setFigmaCopied)}
+            >
               {figmaCopied ? 'Copiato!' : 'Copia'}
             </ActBtn>
             <ActBtn onClick={downloadFigma}>Download</ActBtn>
           </div>
-          <div style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+          <div
+            style={{
+              flex: 1,
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              minHeight: 0,
+            }}
+          >
             <pre
               style={{
                 margin: 0,
@@ -1050,9 +1093,7 @@ export default function FluidTypeScale() {
 
   // Keep viewport in bounds when vpMin/vpMax change
   useEffect(() => {
-    setViewport((v) =>
-      Math.max(ts.settings.vpMin, Math.min(ts.settings.vpMax, v)),
-    )
+    setViewport((v) => Math.max(ts.settings.vpMin, Math.min(ts.settings.vpMax, v)))
   }, [ts.settings.vpMin, ts.settings.vpMax])
 
   return (

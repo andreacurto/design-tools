@@ -112,7 +112,7 @@ export function generateCSS(
   scale: ScaleRow[],
   settings: Settings,
   getPxFn: (key: string, side: 'min' | 'max') => number,
-  fmt: 'root' | 'scss',
+  fmt: 'root' | 'scss'
 ): string {
   const { prefix } = settings
   const hdr = `/*\n * Font size base: ${settings.baseMin}px → ${settings.baseMax}px\n * Viewport: ${settings.vpMin}${settings.vpUnit} → ${settings.vpMax}${settings.vpUnit}\n */`
@@ -121,7 +121,9 @@ export function generateCSS(
   if (fmt === 'root') {
     lines.push(':root {')
     scale.forEach((r) => {
-      lines.push(`  --${prefix}-${r.key}: ${calcClamp(getPxFn(r.key, 'min'), getPxFn(r.key, 'max'), settings)};`)
+      lines.push(
+        `  --${prefix}-${r.key}: ${calcClamp(getPxFn(r.key, 'min'), getPxFn(r.key, 'max'), settings)};`
+      )
     })
     lines.push('}', '')
     scale.forEach((r) => {
@@ -129,7 +131,9 @@ export function generateCSS(
     })
   } else {
     scale.forEach((r) => {
-      lines.push(`$${prefix}-${r.key}: ${calcClamp(getPxFn(r.key, 'min'), getPxFn(r.key, 'max'), settings)};`)
+      lines.push(
+        `$${prefix}-${r.key}: ${calcClamp(getPxFn(r.key, 'min'), getPxFn(r.key, 'max'), settings)};`
+      )
     })
   }
 
@@ -139,7 +143,7 @@ export function generateCSS(
 export function generateFigma(
   scale: ScaleRow[],
   settings: Settings,
-  getPxFn: (key: string, side: 'min' | 'max') => number,
+  getPxFn: (key: string, side: 'min' | 'max') => number
 ): string {
   const { prefix, namingMode } = settings
 
@@ -169,7 +173,7 @@ export function generateFigma(
   const buildGroup = (side: 'min' | 'max') => {
     const entries = ordered.map(
       (k) =>
-        `${indent}"${k}": {\n${indent}  "$type": "number",\n${indent}  "$value": ${Math.round(getPxFn(k, side))}\n${indent}}`,
+        `${indent}"${k}": {\n${indent}  "$type": "number",\n${indent}  "$value": ${Math.round(getPxFn(k, side))}\n${indent}}`
     )
     return `{\n${entries.join(',\n')}\n    }`
   }
@@ -181,7 +185,9 @@ const RESET_OVERRIDES_ON = new Set(['rMin', 'rMax', 'baseMin', 'baseMax', 'root'
 
 export function useTypeScale() {
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS)
-  const [scale, setScale] = useState<ScaleRow[]>(() => makeInitialScale(DEFAULT_SETTINGS.namingMode))
+  const [scale, setScale] = useState<ScaleRow[]>(() =>
+    makeInitialScale(DEFAULT_SETTINGS.namingMode)
+  )
   const [overrides, setOverrides] = useState<Overrides>({})
 
   const defMult = useCallback(
@@ -193,7 +199,7 @@ export function useTypeScale() {
       if (diff > 0) return Math.pow(side === 'min' ? s.rMin : s.rMax, diff)
       return Math.pow(1 / s.rMin, Math.abs(diff))
     },
-    [],
+    []
   )
 
   const getMult = useCallback(
@@ -201,30 +207,27 @@ export function useTypeScale() {
       const entry = ov[key]
       return entry && entry[side] != null ? entry[side]! : defMult(key, side, s, rows)
     },
-    [defMult],
+    [defMult]
   )
 
   const getPxRaw = useCallback(
     (key: string, side: 'min' | 'max', s: Settings, rows: ScaleRow[], ov: Overrides): number => {
       return (side === 'min' ? s.baseMin : s.baseMax) * getMult(key, side, s, rows, ov)
     },
-    [getMult],
+    [getMult]
   )
 
-  const updateSetting = useCallback(
-    <K extends keyof Settings>(key: K, value: Settings[K]) => {
-      setSettings((prev) => {
-        const next = { ...prev, [key]: value }
-        if (RESET_OVERRIDES_ON.has(key as string)) setOverrides({})
-        if (key === 'namingMode') {
-          setOverrides({})
-          setScale((rows) => reassignKeys(rows, value as string))
-        }
-        return next
-      })
-    },
-    [],
-  )
+  const updateSetting = useCallback(<K extends keyof Settings>(key: K, value: Settings[K]) => {
+    setSettings((prev) => {
+      const next = { ...prev, [key]: value }
+      if (RESET_OVERRIDES_ON.has(key as string)) setOverrides({})
+      if (key === 'namingMode') {
+        setOverrides({})
+        setScale((rows) => reassignKeys(rows, value as string))
+      }
+      return next
+    })
+  }, [])
 
   const addAbove = useCallback(() => {
     setOverrides({})
@@ -246,9 +249,14 @@ export function useTypeScale() {
   const removeRow = useCallback(
     (key: string) => {
       setOverrides({})
-      setScale((prev) => reassignKeys(prev.filter((r) => r.key !== key), settings.namingMode))
+      setScale((prev) =>
+        reassignKeys(
+          prev.filter((r) => r.key !== key),
+          settings.namingMode
+        )
+      )
     },
-    [settings.namingMode],
+    [settings.namingMode]
   )
 
   const setOverride = useCallback((key: string, side: 'min' | 'max', value: number | null) => {
@@ -264,12 +272,12 @@ export function useTypeScale() {
 
   const getPx = useCallback(
     (key: string, side: 'min' | 'max') => getPxRaw(key, side, settings, scale, overrides),
-    [getPxRaw, settings, scale, overrides],
+    [getPxRaw, settings, scale, overrides]
   )
 
   const isMod = useCallback(
     (key: string, side: 'min' | 'max') => !!(overrides[key] && overrides[key][side] != null),
-    [overrides],
+    [overrides]
   )
 
   const canAddBelow =

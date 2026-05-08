@@ -240,7 +240,11 @@ La versione in `package.json` deve corrispondere al tag git. Aggiornare come ult
 
 ## Changelog
 
-### v0.1.0 — Bootstrap iniziale (2026-05-08)
+### v0.0.2 — Formattazione Prettier (2026-05-08)
+
+- **Style**: riformattazione Prettier su tutti i file sorgente (JSX, stili inline, trailing comma)
+
+### v0.0.1 — Bootstrap iniziale (2026-05-08)
 
 - **Feat**: setup progetto Vite + React 18 + TypeScript strict + Tailwind CSS v4
 - **Feat**: shell con sidebar navigazione tool
@@ -254,4 +258,4 @@ La versione in `package.json` deve corrispondere al tag git. Aggiornare come ult
 
 ---
 
-_Ultimo aggiornamento: 2026-05-08 — Versione: 0.1.0_
+_Ultimo aggiornamento: 2026-05-08 — Versione: 0.0.2_
