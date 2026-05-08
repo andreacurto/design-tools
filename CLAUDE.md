@@ -240,6 +240,10 @@ La versione in `package.json` deve corrispondere al tag git. Aggiornare come ult
 
 ## Changelog
 
+### v0.0.3 — README (2026-05-08)
+
+- **Docs**: aggiunto README in italiano
+
 ### v0.0.2 — Formattazione Prettier (2026-05-08)
 
 - **Style**: riformattazione Prettier su tutti i file sorgente (JSX, stili inline, trailing comma)
@@ -258,4 +262,4 @@ La versione in `package.json` deve corrispondere al tag git. Aggiornare come ult
 
 ---
 
-_Ultimo aggiornamento: 2026-05-08 — Versione: 0.0.2_
+_Ultimo aggiornamento: 2026-05-08 — Versione: 0.0.3_
